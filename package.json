@@ -14,5 +14,9 @@
 		"svelte": "^3.54.0",
 		"vite": "^4.0.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"svelte-materialify": "^0.3.11",
+		"svelte-routing": "^1.6.0"
+	}
 }
