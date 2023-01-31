@@ -1,15 +1,18 @@
 <script>
-    import { navigate } from 'svelte-routing';
+   import { goto } from '$app/navigation';
+
+   import jwtStore from "./store.js";
+
     let email = "";
     let password = "";
-
     let isLoading = false;
-
     let isSuccess = false;
-
-    //export let submit;
-
     let errors = {};
+    let jwtItem;
+
+   jwtStore.subscribe((data) => {
+        jwtItem = data;
+    });
 
     async function getJWT(log) {
         try {
@@ -23,15 +26,15 @@
                     password: log.password,
                 }),
             });
-            return response.json();
+            const jsonResponse = await response.json();
+            jwtStore.update( () => jsonResponse.jwt)
         } catch (error) {
-            console.error(error);
+            throw(error);
         }
     }
 
-    const handleSubmit = () => {
+   function handleSubmit() {
         errors = {};
-
         if (email.length === 0) {
             errors.email = "Field should not be empty";
         }
@@ -41,19 +44,19 @@
 
         if (Object.keys(errors).length === 0) {
             isLoading = true;
-            getJWT({ email, password })
+                getJWT({ email, password })
                 .then(() => {
                     isSuccess = true;
                     isLoading = false;
-                    navigate("./location_board");
+                    goto("./location_board/")
                 })
                 .catch(err => {
                     errors.server = err;
                     isLoading = false;
                 });
-        }
-    };
 
+        }
+    }
 </script>
 
 <style>
@@ -126,7 +129,7 @@
     }
 </style>
 
-<form on:submit|preventDefault={handleSubmit}>
+
     {#if isSuccess}
         <div class="success">
             🔓
@@ -142,9 +145,11 @@
         <label>Password</label>
         <input name="password" type="password" bind:value={password} />
 
-        <button type="submit">
+        <button on:click={() => {handleSubmit()}} class="signin">
             {#if isLoading}Logging in...{:else}Log in 🔒{/if}
         </button>
+
+        <button on:click={() => {goto("./register")}} class="signup">Sign up </button>
 
         {#if Object.keys(errors).length > 0}
             <ul class="errors">
@@ -154,4 +159,5 @@
             </ul>
         {/if}
     {/if}
-</form>
+
+

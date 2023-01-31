@@ -17,6 +17,6 @@
 	"type": "module",
 	"dependencies": {
 		"svelte-materialify": "^0.3.11",
-		"svelte-routing": "^1.6.0"
+		"svelte-sortable-flat-list-view": "^1.0.0"
 	}
 }
