@@ -28,6 +28,7 @@
             });
             const jsonResponse = await response.json();
             jwtStore.update( () => jsonResponse.jwt)
+            //console.log(JSON.parse(atob(jwtItem.split('.')[1])).role)
         } catch (error) {
             throw(error);
         }
@@ -48,7 +49,15 @@
                 .then(() => {
                     isSuccess = true;
                     isLoading = false;
-                    goto("./location_board/")
+                    if(JSON.parse(atob(jwtItem.split('.')[1])).role === "user"){
+                        goto("./user_location_board/")
+                    }
+                    else if(JSON.parse(atob(jwtItem.split('.')[1])).role === "admin"){
+                        goto("./admin_location_board/")
+                    }
+
+
+
                 })
                 .catch(err => {
                     errors.server = err;
