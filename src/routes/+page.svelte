@@ -16,6 +16,7 @@
 
     async function getJWT(log) {
         try {
+
             const response = await fetch(`http://localhost:3000/users/login`, {
                 method: "POST",
                 headers: {
@@ -30,6 +31,7 @@
             jwtStore.update( () => jsonResponse.jwt)
             //console.log(JSON.parse(atob(jwtItem.split('.')[1])).role)
         } catch (error) {
+            console.log("caca")
             throw(error);
         }
     }
@@ -42,28 +44,26 @@
         if (password.length === 0) {
             errors.password = "Field should not be empty";
         }
-
         if (Object.keys(errors).length === 0) {
             isLoading = true;
                 getJWT({ email, password })
                 .then(() => {
                     isSuccess = true;
                     isLoading = false;
+
+                    //<button on:click={() => {addLocation}} id="send-form_button">ADD</button>
+                    console.log(JSON.parse(atob(jwtItem.split('.')[1])).role)
                     if(JSON.parse(atob(jwtItem.split('.')[1])).role === "user"){
                         goto("./user_location_board/")
                     }
                     else if(JSON.parse(atob(jwtItem.split('.')[1])).role === "admin"){
                         goto("./admin_location_board/")
                     }
-
-
-
                 })
                 .catch(err => {
                     errors.server = err;
                     isLoading = false;
                 });
-
         }
     }
 </script>
