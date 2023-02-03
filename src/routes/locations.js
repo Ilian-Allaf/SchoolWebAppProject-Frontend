@@ -1,4 +1,5 @@
 import jwtStore from "./store.js";
+import { goto } from '$app/navigation';
 
 let jwtItem;
 jwtStore.subscribe((data) =>{
@@ -16,6 +17,7 @@ export async function getAllLocations() {
         return await response.json();
     }
     catch (error) {
+        goto("./")
         console.error(error);
     }
 }

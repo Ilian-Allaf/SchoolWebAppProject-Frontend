@@ -14,6 +14,7 @@
         jwtItem = data;
     });
 
+
     async function getJWT(log) {
         try {
 
@@ -63,7 +64,38 @@
                 });
         }
     }
+
 </script>
+
+{#if isSuccess}
+    <div class="success">
+        🔓
+        <br />
+        You've been successfully logged in.
+    </div>
+{:else}
+    <h1>👤</h1>
+
+    <label>Email</label>
+    <input name="email" placeholder="name@example.com" bind:value={email} />
+
+    <label>Password</label>
+    <input name="password" type="password"  bind:value={password} />
+
+    <button on:click={() => {handleSubmit()}} class="signin">
+        {#if isLoading}Logging in...{:else}Log in 🔒{/if}
+    </button>
+
+    <button on:click={() => {goto("./register")}} class="signup">Sign up </button>
+
+    {#if Object.keys(errors).length > 0}
+        <ul class="errors">
+            {#each Object.keys(errors) as field}
+                <li>{field}: {errors[field]}</li>
+            {/each}
+        </ul>
+    {/if}
+{/if}
 
 <style>
     form {
@@ -135,35 +167,5 @@
     }
 </style>
 
-
-    {#if isSuccess}
-        <div class="success">
-            🔓
-            <br />
-            You've been successfully logged in.
-        </div>
-    {:else}
-        <h1>👤</h1>
-
-        <label>Email</label>
-        <input name="email" placeholder="name@example.com" bind:value={email} />
-
-        <label>Password</label>
-        <input name="password" type="password"  bind:value={password} />
-
-        <button on:click={() => {handleSubmit()}} class="signin">
-            {#if isLoading}Logging in...{:else}Log in 🔒{/if}
-        </button>
-
-        <button on:click={() => {goto("./register")}} class="signup">Sign up </button>
-
-        {#if Object.keys(errors).length > 0}
-            <ul class="errors">
-                {#each Object.keys(errors) as field}
-                    <li>{field}: {errors[field]}</li>
-                {/each}
-            </ul>
-        {/if}
-    {/if}
 
 
