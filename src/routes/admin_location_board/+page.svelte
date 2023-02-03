@@ -1,7 +1,7 @@
 <script>
     import jwtStore from "../store.js";
     import AddLocationForm from "./add_location_form.svelte";
-    import { getAllLocations } from './locations.js';
+    import { getAllLocations } from '../locations.js';
 
     let jwtItem;
     let data;
@@ -42,6 +42,7 @@
         updateForm = true;
         currentLocationEditingOn = location._id;
         showAddFormPopup = "block";
+        location.showDetails = false;
     }
     async function deleteLocation(id) {
         try {
@@ -63,7 +64,8 @@
 
 </script>
 
-<button on:click={() => {showAddFormPopup = "block"}} id="open-popup-button">Add</button>
+<button class="center-button" on:click={() => {showAddFormPopup = "block"}} id="open-popup-button">Add</button>
+
 
 {#await locations}
     <p>Loading...</p>
@@ -71,25 +73,26 @@
     {#each filmNamesArray as location}
         <div>
             <div on:mouseenter={() => {showButtons = true; currentFilmNameMouseOn = location._id}} on:mouseleave={() => {showButtons = false; currentFilmNameMouseOn = ""}}>
-                <span on:click={() => {location.showDetails = !location.showDetails}}>
+                <div class = "location-card" on:click={() => {location.showDetails = !location.showDetails}}>
                     {location.filmName}
-               </span>
+
                {#if showButtons && currentFilmNameMouseOn === location._id && showAddFormPopup === "none"}
                    <button on:click={editButtonPressed(location)} id="edit-button">edit</button>
                    <button on:click={deleteLocation(location._id)} id="delete-button">delete</button>
                {/if}
+                </div>
            </div>
 
            {#if location.showDetails}
-               <p>Film type: {location.filmType}</p>
-               <p>ProducerName: {location.filmProducerName}</p>
-               <p>End date: {location.endDate}</p>
-               <p>District: {location.district}</p>
-               <p>Coordinates: {location.geolocation.coordinates[0]}, {location.geolocation.coordinates[1]}</p>
-               <p>Director name: {location.filmDirectorName}</p>
-               <p>Address: {location.address}</p>
-               <p>Start date: {location.startDate}</p>
-               <p>Year: {location.year}</p>
+                   <p>Film type: {location.filmType}</p>
+                   <p>ProducerName: {location.filmProducerName}</p>
+                   <p>End date: {location.endDate}</p>
+                   <p>District: {location.district}</p>
+                   <p>Coordinates: {location.geolocation.coordinates[0]}, {location.geolocation.coordinates[1]}</p>
+                   <p>Director name: {location.filmDirectorName}</p>
+                   <p>Address: {location.address}</p>
+                   <p>Start date: {location.startDate}</p>
+                   <p>Year: {location.year}</p>
            {/if}
         </div>
     {/each}
@@ -111,4 +114,49 @@
         bind:year={year}
 />
 
+<style>
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
 
+    #open-popup-button {
+        display: block;
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    #edit-button, #delete-button {
+        background-color: #f44336;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        float: right;
+        margin-left: 10px;
+    }
+    .center-button {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .location-card {
+        background-color: #f2f2f2;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+    .location-card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        margin-bottom: 10px;
+    }
+</style>

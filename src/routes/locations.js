@@ -1,4 +1,4 @@
-import jwtStore from "../store.js";
+import jwtStore from "./store.js";
 
 let jwtItem;
 jwtStore.subscribe((data) =>{

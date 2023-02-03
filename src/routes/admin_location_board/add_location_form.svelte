@@ -1,6 +1,6 @@
 <script>
     import jwtStore from "../store.js";
-    import { getAllLocations } from './locations.js';
+    import { getAllLocations } from '../locations.js';
     export let locations;
     export let filmType;
     export let filmProducerName;
@@ -89,34 +89,34 @@
 </script>
 <div class="popup" style="display: {showAddFormPopup};">
 <form class="popup-form">
-    <label>filmType</label>
-    <input name="filmType" id="filmType" bind:value={filmType}/>
-    <br>
-    <label>filmProducerName</label>
-    <input name="filmProducerName" id="filmProducerName" bind:value={filmProducerName}/>
-    <br>
-    <label>endDate</label>
-    <input name="endDate" id="endDate" bind:value={endDate}/>
-    <br>
-    <label>filmName</label>
+    <label>Film Name</label>
     <input name="filmName" id="filmName" bind:value={filmName}/>
     <br>
-    <label>district</label>
+    <label>Film Type</label>
+    <input name="filmType" id="filmType" bind:value={filmType}/>
+    <br>
+    <label>Film Producer Name</label>
+    <input name="filmProducerName" id="filmProducerName" bind:value={filmProducerName}/>
+    <br>
+    <label>End Date</label>
+    <input name="endDate" id="endDate" bind:value={endDate}/>
+    <br>
+    <label>District</label>
     <input name="district" id="district" bind:value={district}/>
     <br>
-    <label>coordinates</label>
+    <label>Coordinates</label>
     <input name="coordinates" id="coordinates" bind:value={coordinates}/>
     <br>
-    <label>filmDirectorName</label>
+    <label>Film Director Name</label>
     <input name="filmDirectorName" id="filmDirectorName" bind:value={filmDirectorName}/>
     <br>
-    <label>address</label>
+    <label>Address</label>
     <input name="address" id="address" bind:value={address}/>
     <br>
-    <label>startDate</label>
+    <label>Start Date</label>
     <input name="startDate" id="startDate" bind:value={startDate}/>
     <br>
-    <label>year</label>
+    <label>Year</label>
     <input name="year" id="year" bind:value={year}/>
     <br>
     {#if updateForm === true}
@@ -124,7 +124,7 @@
         <button on:click={() => cancelLocationUpdate()} id="cancel-update-button">cancel</button>
     {:else}
         <button on:click={() => {showAddFormPopup = "none"}} id="close-popup-button">Close</button>
-        <button on:click={() => {addLocation()}} id="send-form_button">ADD</button>
+        <button on:click={() => {addLocation()}} id="send-form_button">Add</button>
     {/if}
 </form>
 </div>
@@ -150,20 +150,26 @@
         margin: 10px 0;
         width: 100%;
         border: none;
+        border-bottom: 2px solid grey;
         border-radius: 5px;
-        box-shadow: 0px 0px 5px 0px gray;
+        box-shadow: none;
     }
 
     label {
         font-weight: bold;
-        margin-right: 10px;
+        margin-right: 30px;
+        margin-bottom: 0px;
+        display: inline-block;
+        width: 150px;
+        text-align: left;
+        padding-right: 10px;
     }
 
     button {
-        background-color: green;
+        background-color: #4CAF50;
         color: white;
         padding: 10px 20px;
-        border: none;
+        border: 1px solid #4CAF50;
         border-radius: 5px;
         margin-top: 20px;
         cursor: pointer;

@@ -34,9 +34,7 @@
     }
 </script>
 
-
-
-<form>
+    <h1>👤</h1>
     <label>Email</label>
     <input name="email" placeholder="name@example.com" bind:value={email} />
 
@@ -47,7 +45,6 @@
         Sign Up
     </button>
 
-</form>
 
 
 <style>
