@@ -1,23 +1,65 @@
 <script>
     import jwtStore from "../store.js";
-    let filmType;
-    let filmProducerName;
-    let endDate;
-    let filmName;
-    let district;
-    let coordinates;
-    let filmDirectorName;
-    let address;
-    let startDate;
-    let year;
+    import { getAllLocations } from './locations.js';
+    export let locations;
+    export let filmType;
+    export let filmProducerName;
+    export let endDate;
+    export let filmName;
+    export let district;
+    export let coordinates;
+    export let filmDirectorName;
+    export let address;
+    export let startDate;
+    export let year;
     export let showAddFormPopup = "none";
+    export let updateForm= false;
+    export let currentLocationEditingOn = "";
     let jwtItem;
 
     jwtStore.subscribe((data) =>{
         jwtItem = data;
     });
-
-
+    function resetInputVariables(){
+        [filmType, filmProducerName, endDate, filmName, district, coordinates, filmDirectorName, address, startDate, year] =  ""
+    }
+    function cancelLocationUpdate(){
+        showAddFormPopup = "none";
+        resetInputVariables();
+    }
+    async function applyLocationUpdate() {
+        try {
+            const response = await fetch(`http://localhost:3000/locations/`+ currentLocationEditingOn, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${jwtItem}`,
+                },
+                body: JSON.stringify({
+                    filmType: filmType,
+                    filmProducerName: filmProducerName,
+                    endDate: endDate,
+                    filmName: filmName,
+                    district: district,
+                    geolocation: {
+                        coordinates: coordinates,
+                    },
+                    filmDirectorName: filmDirectorName,
+                    address: address,
+                    startDate: startDate,
+                    year: year,
+                }),
+            });
+            updateForm = false;
+            resetInputVariables();
+            showAddFormPopup = "none";
+            locations = getAllLocations()
+            return await response.json();
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
     async function addLocation(){
         const response = await fetch(`http://localhost:3000/locations`, {
             method: "POST",
@@ -40,6 +82,7 @@
                 year: year,
             }),
         });
+        showAddFormPopup = "none"
         let jsonResponse = response.json();
         console.log(jsonResponse)
     }
@@ -76,8 +119,13 @@
     <label>year</label>
     <input name="year" id="year" bind:value={year}/>
     <br>
-    <button on:click={() => {showAddFormPopup = "none"}} id="close-popup-button">Close</button>
-    <button on:click={() => {addLocation()}} id="send-form_button">ADD</button>
+    {#if updateForm === true}
+        <button on:click={() => applyLocationUpdate()} id="apply-update-button">apply</button>
+        <button on:click={() => cancelLocationUpdate()} id="cancel-update-button">cancel</button>
+    {:else}
+        <button on:click={() => {showAddFormPopup = "none"}} id="close-popup-button">Close</button>
+        <button on:click={() => {addLocation()}} id="send-form_button">ADD</button>
+    {/if}
 </form>
 </div>
 
@@ -121,5 +169,3 @@
         cursor: pointer;
     }
 </style>
-
-
