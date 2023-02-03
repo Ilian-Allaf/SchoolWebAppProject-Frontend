@@ -3,8 +3,8 @@
 
    import jwtStore from "./store.js";
 
-    let email = "";
-    let password = "";
+    let email = "farouk";
+    let password = "mdp";
     let isLoading = false;
     let isSuccess = false;
     let errors = {};
@@ -29,9 +29,7 @@
             });
             const jsonResponse = await response.json();
             jwtStore.update( () => jsonResponse.jwt)
-            //console.log(JSON.parse(atob(jwtItem.split('.')[1])).role)
         } catch (error) {
-            console.log("caca")
             throw(error);
         }
     }
@@ -52,7 +50,6 @@
                     isLoading = false;
 
                     //<button on:click={() => {addLocation}} id="send-form_button">ADD</button>
-                    console.log(JSON.parse(atob(jwtItem.split('.')[1])).role)
                     if(JSON.parse(atob(jwtItem.split('.')[1])).role === "user"){
                         goto("./user_location_board/")
                     }
@@ -152,7 +149,7 @@
         <input name="email" placeholder="name@example.com" bind:value={email} />
 
         <label>Password</label>
-        <input name="password" type="password" bind:value={password} />
+        <input name="password" type="password"  bind:value={password} />
 
         <button on:click={() => {handleSubmit()}} class="signin">
             {#if isLoading}Logging in...{:else}Log in 🔒{/if}

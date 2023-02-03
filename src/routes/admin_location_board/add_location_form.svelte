@@ -10,7 +10,7 @@
     let address;
     let startDate;
     let year;
-    export let visible = "none";
+    export let showAddFormPopup = "none";
     let jwtItem;
 
     jwtStore.subscribe((data) =>{
@@ -44,7 +44,7 @@
         console.log(jsonResponse)
     }
 </script>
-<div class="popup" style="display: {visible};">
+<div class="popup" style="display: {showAddFormPopup};">
 <form class="popup-form">
     <label>filmType</label>
     <input name="filmType" id="filmType" bind:value={filmType}/>
@@ -76,7 +76,7 @@
     <label>year</label>
     <input name="year" id="year" bind:value={year}/>
     <br>
-    <button on:click={() => {visible = "none"}} id="close-popup-button">Close</button>
+    <button on:click={() => {showAddFormPopup = "none"}} id="close-popup-button">Close</button>
     <button on:click={() => {addLocation()}} id="send-form_button">ADD</button>
 </form>
 </div>
