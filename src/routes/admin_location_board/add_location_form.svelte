@@ -29,7 +29,7 @@
     }
     async function applyLocationUpdate() {
         try {
-            const response = await fetch(`http://localhost:3000/locations/`+ currentLocationEditingOn, {
+            await fetch(`http://localhost:3000/locations/`+ currentLocationEditingOn, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -42,7 +42,7 @@
                     filmName: filmName,
                     district: district,
                     geolocation: {
-                        coordinates: coordinates,
+                        coordinates: [coordinates.split(",")[0], coordinates.split(",")[1]],
                     },
                     filmDirectorName: filmDirectorName,
                     address: address,
@@ -54,10 +54,10 @@
             resetInputVariables();
             showAddFormPopup = "none";
             locations = getAllLocations()
-            return await response.json();
+
         }
         catch (error) {
-            console.error(error);
+            console.log(error);
         }
     }
     async function addLocation(){
