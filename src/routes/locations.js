@@ -7,7 +7,7 @@ jwtStore.subscribe((data) =>{
 });
 export async function getAllLocations() {
     try {
-        const response = await fetch(`http://localhost:3000/locations`, {
+        const response = await fetch(`https://secure-web-dev-backend-mf4y.onrender.com/locations`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
