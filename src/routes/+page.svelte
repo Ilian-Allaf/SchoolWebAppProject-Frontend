@@ -18,7 +18,7 @@
     async function getJWT(log) {
         try {
 
-            const response = await fetch(`http://localhost:3000/users/login`, {
+            const response = await fetch(`https://secure-web-dev-backend-mf4y.onrender.com/users/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

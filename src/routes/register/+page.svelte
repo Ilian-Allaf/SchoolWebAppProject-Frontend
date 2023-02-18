@@ -6,7 +6,7 @@
     let errors = {};
 
     async function register(log) {
-        const response = await fetch(`http://localhost:3000/users/register`, {
+        const response = await fetch(`https://secure-web-dev-backend-mf4y.onrender.com/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
