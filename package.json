@@ -16,6 +16,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-vercel": "^1.0.6",
 		"svelte-materialify": "^0.3.11",
 		"svelte-sortable-flat-list-view": "^1.0.0"
 	}
