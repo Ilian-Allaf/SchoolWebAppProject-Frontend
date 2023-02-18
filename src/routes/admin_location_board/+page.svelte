@@ -46,7 +46,7 @@
     }
     async function deleteLocation(id) {
         try {
-            await fetch(`http://localhost:3000/locations/` + id, {
+            await fetch(`https://secure-web-dev-backend-mf4y.onrender.com/locations/` + id, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",

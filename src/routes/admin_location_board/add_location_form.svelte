@@ -29,7 +29,7 @@
     }
     async function applyLocationUpdate() {
         try {
-            await fetch(`http://localhost:3000/locations/`+ currentLocationEditingOn, {
+            await fetch(`https://secure-web-dev-backend-mf4y.onrender.com/locations/`+ currentLocationEditingOn, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -61,7 +61,7 @@
         }
     }
     async function addLocation(){
-        const response = await fetch(`http://localhost:3000/locations`, {
+        const response = await fetch(`https://secure-web-dev-backend-mf4y.onrender.com/locations`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
