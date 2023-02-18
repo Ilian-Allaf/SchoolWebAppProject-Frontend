@@ -3,8 +3,8 @@
 
    import jwtStore from "./store.js";
 
-    let email = "farouk";
-    let password = "mdp";
+    let email = "";
+    let password = "";
     let isLoading = false;
     let isSuccess = false;
     let errors = {};
