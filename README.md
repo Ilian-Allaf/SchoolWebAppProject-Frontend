@@ -1,4 +1,4 @@
-# Web Application Frontend Project
+# Web Application Frontend
 
 This frontend was made based of the backend created by the teacher, it is accessible [here](https://github.com/RochMoreau/secure-web-dev-backend)
 
